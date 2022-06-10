@@ -1,6 +1,6 @@
 // TODO: Add authentication
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 const LoginScreen = (props) => {
-  const [text, onChangeText] = React.useState(null);
+  const [text, onChangeText] = useState(null);
 
   const onLoginPress = () => {}; // TODO
 
@@ -23,6 +23,7 @@ const LoginScreen = (props) => {
         autoCapitalize="none"
         autoFocus={true}
         onChangeText={onChangeText}
+        underlineColorAndroid="transparent"
         //value={username}
       />
       <TextInput
@@ -31,6 +32,7 @@ const LoginScreen = (props) => {
         secureTextEntry={true}
         autoCapitalize="none"
         onChangeText={onChangeText}
+        underlineColorAndroid="transparent"
         //value={password}
       />
       <TouchableOpacity style={styles.button} onPress={() => onLoginPress()}>

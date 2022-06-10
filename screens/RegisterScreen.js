@@ -1,6 +1,6 @@
 // TODO: Add authentication
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -10,9 +10,11 @@ import {
 } from "react-native";
 
 const RegisterScreen = (props) => {
-  const [text, onChangeText] = React.useState(null);
+  const [text, onChangeText] = useState(null);
 
-  const onRegisterPress = () => {}; // TODO
+  const onRegisterPress = () => {
+    props.navigation.navigate("Log In"); // TODO
+  };
 
   return (
     <View style={styles.container}>
@@ -23,6 +25,7 @@ const RegisterScreen = (props) => {
         autoCapitalize="none"
         autoFocus={true}
         onChangeText={onChangeText}
+        underlineColorAndroid="transparent"
         //value={username}
       />
       <TextInput
@@ -31,6 +34,7 @@ const RegisterScreen = (props) => {
         secureTextEntry={true}
         autoCapitalize="none"
         onChangeText={onChangeText}
+        underlineColorAndroid="transparent"
         //value={password}
       />
       <TextInput
@@ -39,6 +43,7 @@ const RegisterScreen = (props) => {
         secureTextEntry={true}
         autoCapitalize="none"
         onChangeText={onChangeText}
+        underlineColorAndroid="transparent"
         //value={confirmPassword}
       />
       <TouchableOpacity style={styles.button} onPress={() => onRegisterPress()}>
