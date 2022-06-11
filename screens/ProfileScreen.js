@@ -27,7 +27,7 @@ export default function ProfileScreen() {
       <View style={styles.container}>
         <Image
           source={{ uri: selectedImage.localUri }}
-          style={{ width: 200, height: 200 }}
+          style={styles.profile}
         />
         <TouchableOpacity onPress={openImagePickerAsync}>
           <Text style={styles.edit}>Edit</Text>
@@ -40,7 +40,7 @@ export default function ProfileScreen() {
     <View style={styles.container}>
       <Image
         source={require("../assets/default-profile-pic.jpeg")}
-        style={{ width: 200, height: 200 }}
+        style={styles.profile}
       />
       <TouchableOpacity onPress={openImagePickerAsync}>
         <Text style={styles.edit}>Edit</Text>
@@ -54,6 +54,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+  },
+  profile: {
+    height: 200,
+    width: 200,
+    borderTopLeftRadius: 100,
+    borderTopRightRadius: 100,
+    borderBottomLeftRadius: 100,
+    borderBottomRightRadius: 100,
   },
   edit: {
     color: "blue",

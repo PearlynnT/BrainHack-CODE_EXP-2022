@@ -75,7 +75,6 @@ function CreateActivityScreen() {
         style={styles.input}
         placeholder="Activity Name"
         autoCapitalize="words"
-        autoFocus={true}
         onChangeText={onChangeText}
         underlineColorAndroid="transparent"
         //value={activityName}
