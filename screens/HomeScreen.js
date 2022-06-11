@@ -31,6 +31,26 @@ function HomeScreen() {
 }
 
 function CreateActivityScreen() {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  let openImagePickerAsync = async () => {
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+
+    setSelectedImage({ localUri: pickerResult.uri });
+  };
+
   const [text, onChangeText] = useState(null);
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
@@ -71,10 +91,20 @@ function CreateActivityScreen() {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../assets/default-thumbnail-pic.jpeg")}
-        style={styles.thumbnail}
-      />
+      {selectedImage !== null ? (
+        <Image
+          source={{ uri: selectedImage.localUri }}
+          style={styles.thumbnail}
+        />
+      ) : (
+        <Image
+          source={require("../assets/default-thumbnail-pic.jpeg")}
+          style={styles.thumbnail}
+        />
+      )}
+      <TouchableOpacity onPress={openImagePickerAsync}>
+        <Text style={styles.add}>Add Image</Text>
+      </TouchableOpacity>
       <TextInput
         style={styles.input}
         placeholder="Activity Name"
@@ -151,6 +181,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
+  },
+  add: {
+    color: "blue",
+    marginTop: 20,
   },
   input: {
     width: 350,
