@@ -71,6 +71,10 @@ function CreateActivityScreen() {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require("../assets/default-thumbnail-pic.jpeg")}
+        style={styles.thumbnail}
+      />
       <TextInput
         style={styles.input}
         placeholder="Activity Name"
@@ -139,6 +143,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+  },
+  thumbnail: {
+    height: 200,
+    width: "90%",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
   },
   input: {
     width: 350,
