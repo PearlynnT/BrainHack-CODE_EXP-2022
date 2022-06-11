@@ -3,6 +3,7 @@ import {
   Text,
   StyleSheet,
   View,
+  Image,
   TouchableOpacity,
   TextInput,
   Platform,
@@ -11,6 +12,7 @@ import { Title } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as ImagePicker from "expo-image-picker";
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -41,7 +43,7 @@ function CreateActivityScreen() {
       const currentDate = selectedValue || new Date();
       setDate(currentDate);
       setMode("time");
-      setShow(Platform.OS !== "ios"); // to show the picker again in time mode
+      setShow(Platform.OS !== "ios");
     } else {
       const selectedTime = selectedValue || new Date();
       setTime(selectedTime);
