@@ -22,26 +22,19 @@ export default function ProfileScreen() {
     setSelectedImage({ localUri: pickerResult.uri });
   };
 
-  if (selectedImage !== null) {
-    return (
-      <View style={styles.container}>
+  return (
+    <View style={styles.container}>
+      {selectedImage !== null ? (
         <Image
           source={{ uri: selectedImage.localUri }}
           style={styles.profile}
         />
-        <TouchableOpacity onPress={openImagePickerAsync}>
-          <Text style={styles.edit}>Edit</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  return (
-    <View style={styles.container}>
-      <Image
-        source={require("../assets/default-profile-pic.jpeg")}
-        style={styles.profile}
-      />
+      ) : (
+        <Image
+          source={require("../assets/default-profile-pic.jpeg")}
+          style={styles.profile}
+        />
+      )}
       <TouchableOpacity onPress={openImagePickerAsync}>
         <Text style={styles.edit}>Edit</Text>
       </TouchableOpacity>
