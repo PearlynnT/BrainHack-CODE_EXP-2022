@@ -1,5 +1,12 @@
 import React from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import { Title } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 
@@ -10,10 +17,11 @@ function HomeScreen() {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("CreateActivity")}
+        onPress={() => navigation.navigate("Create Activity")}
       >
         <Text style={styles.buttonTitle}>Start a new activity</Text>
       </TouchableOpacity>
+      <Title>Your Upcoming Activities</Title>
     </View>
   );
 }
@@ -21,7 +29,7 @@ function HomeScreen() {
 function CreateActivityScreen() {
   return (
     <View style={styles.container}>
-      <Text>Create Activity</Text>
+      <Title>Start A New Activity</Title>
     </View>
   );
 }
@@ -32,7 +40,7 @@ export default function HomeStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="CreateActivity" component={CreateActivityScreen} />
+      <Stack.Screen name="Create Activity" component={CreateActivityScreen} />
     </Stack.Navigator>
   );
 }
