@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
   View,
   TouchableOpacity,
   TextInput,
+  Platform,
 } from "react-native";
 import { Title } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -21,15 +23,97 @@ function HomeScreen() {
       >
         <Text style={styles.buttonTitle}>Start a new activity</Text>
       </TouchableOpacity>
-      <Title>Your Upcoming Activities</Title>
+      <Title style={styles.heading}>Your Upcoming Activities</Title>
     </View>
   );
 }
 
 function CreateActivityScreen() {
+  const [text, onChangeText] = useState(null);
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(new Date());
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedValue) => {
+    setShow(Platform.OS === "ios");
+    if (mode == "date") {
+      const currentDate = selectedValue || new Date();
+      setDate(currentDate);
+      setMode("time");
+      setShow(Platform.OS !== "ios"); // to show the picker again in time mode
+    } else {
+      const selectedTime = selectedValue || new Date();
+      setTime(selectedTime);
+      setShow(Platform.OS === "ios");
+      setMode("date");
+    }
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const formatDate = (date, time) => {
+    return `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()} ${time.getHours()}:${time.getMinutes()}`;
+  };
+
+  const navigation = useNavigation();
+
+  const onCreateActivityPress = () => {
+    navigation.navigate("HomeScreen"); // TODO
+  };
+
   return (
     <View style={styles.container}>
-      <Title>Start A New Activity</Title>
+      <TextInput
+        style={styles.input}
+        placeholder="Activity Name"
+        autoCapitalize="words"
+        autoFocus={true}
+        onChangeText={onChangeText}
+        underlineColorAndroid="transparent"
+        //value={activityName}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Description"
+        multipline={true}
+        textAlignVertical="top"
+        onChangeText={onChangeText}
+        underlineColorAndroid="transparent"
+        //value={activityDescription}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Location"
+        autoCapitalize="words"
+        onChangeText={onChangeText}
+        underlineColorAndroid="transparent"
+        //value={activityLocation}
+      />
+      <TouchableOpacity onPress={() => showMode("date")}>
+        <Text style={styles.datetime}>{formatDate(date, time)}</Text>
+      </TouchableOpacity>
+      {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={mode}
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      )}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => onCreateActivityPress()}
+      >
+        <Text style={styles.buttonTitle}>Create Activity</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -39,7 +123,11 @@ const Stack = createStackNavigator();
 export default function HomeStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="Create Activity" component={CreateActivityScreen} />
     </Stack.Navigator>
   );
@@ -50,6 +138,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+  },
+  input: {
+    width: 350,
+    height: 55,
+    margin: 10,
+    padding: 8,
+    borderRadius: 15,
+    fontSize: 18,
+    fontWeight: "500",
   },
   button: {
     width: 350,
@@ -63,6 +160,13 @@ const styles = StyleSheet.create({
   },
   buttonTitle: {
     color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  heading: {
+    marginTop: 20,
+  },
+  datetime: {
     fontSize: 18,
     fontWeight: "bold",
   },
