@@ -22,6 +22,8 @@ export default function ProfileScreen() {
     setSelectedImage({ localUri: pickerResult.uri });
   };
 
+  const onLogoutPress = () => {}; // TODO
+
   return (
     <View style={styles.container}>
       {selectedImage !== null ? (
@@ -37,6 +39,9 @@ export default function ProfileScreen() {
       )}
       <TouchableOpacity onPress={openImagePickerAsync}>
         <Text style={styles.edit}>Edit</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => onLogoutPress()}>
+        <Text style={styles.buttonTitle}>Log Out</Text>
       </TouchableOpacity>
     </View>
   );
@@ -59,5 +64,20 @@ const styles = StyleSheet.create({
   edit: {
     color: "blue",
     marginTop: 20,
+  },
+  button: {
+    width: 350,
+    height: 55,
+    margin: 10,
+    padding: 8,
+    borderRadius: 15,
+    backgroundColor: "#000080",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonTitle: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
