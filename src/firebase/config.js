@@ -4,7 +4,7 @@ import '@firebase/firestore';
 
 //removed keys for safety
 const firebaseConfig = {
-    apiKey: "",
+    apiKey: "test key",
     authDomain: "",
     projectId: "",
     storageBucket: "",
