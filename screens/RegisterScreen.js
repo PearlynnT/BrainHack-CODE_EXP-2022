@@ -1,5 +1,3 @@
-// TODO: Add authentication
-
 import React, { useState } from "react";
 import {
   Text,
@@ -8,43 +6,87 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { Title } from "react-native-paper";
+import firebase from "../database/firebaseDB";
+
+//const db = firebase.firestore();
+//const auth = firebase.auth();
 
 const RegisterScreen = (props) => {
-  const [text, onChangeText] = useState(null);
+  //const [text, onChangeText] = useState(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const onRegisterPress = () => {
-    props.navigation.navigate("Log In"); // TODO
+    if (password !== confirmPassword) {
+      alert("Passwords don't match.");
+      return;
+    }
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((response) => {
+        const uid = response.user.uid;
+        const data = {
+          id: uid,
+          email,
+          name,
+        };
+        const usersRef = firebase.firestore().collection("users");
+        usersRef
+          .doc(uid)
+          .set(data)
+          .then(() => {
+            props.navigation.navigate("Log In", { user: data });
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
   return (
     <View style={styles.container}>
-      <Text>Register (Change this to a logo)</Text>
+      <Title>Register</Title>
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder="Name"
         autoCapitalize="none"
         autoFocus={true}
-        onChangeText={onChangeText}
+        onChangeText={(text) => setName(text)}
         underlineColorAndroid="transparent"
-        //value={username}
+        value={name}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="E-mail"
+        autoCapitalize="none"
+        onChangeText={(text) => setEmail(text)}
+        underlineColorAndroid="transparent"
+        value={email}
       />
       <TextInput
         style={styles.input}
         placeholder="Password"
         secureTextEntry={true}
         autoCapitalize="none"
-        onChangeText={onChangeText}
+        onChangeText={(text) => setPassword(text)}
         underlineColorAndroid="transparent"
-        //value={password}
+        value={password}
       />
       <TextInput
         style={styles.input}
         placeholder="Confirm Password"
         secureTextEntry={true}
         autoCapitalize="none"
-        onChangeText={onChangeText}
+        onChangeText={(text) => setConfirmPassword(text)}
         underlineColorAndroid="transparent"
-        //value={confirmPassword}
+        value={confirmPassword}
       />
       <TouchableOpacity style={styles.button} onPress={() => onRegisterPress()}>
         <Text style={styles.buttonTitle}>Register</Text>

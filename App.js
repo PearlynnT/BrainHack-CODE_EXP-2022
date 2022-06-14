@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -9,6 +10,7 @@ import HomeScreen from "./screens/HomeScreen";
 import ActivityScreen from "./screens/ActivityScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import { FontAwesome } from "@expo/vector-icons";
+import { firebase } from "./database/firebaseDB";
 
 const Stack = createStackNavigator();
 
@@ -44,6 +46,8 @@ function Main() {
 
 export default function App() {
   let isLoggedIn = true; // Change isLoggedIn to true to view home, activity, profile screens OR isLoggedIn to false to view login, register screens
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   return (
     <NavigationContainer>
