@@ -19,14 +19,26 @@ const category = [
 ];
 
 export default function ActivityScreen() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <FlatList
+        keyExtractor={(item) => item.cat}
         data={category}
         renderItem={({ item }) => {
-          return <Title>{item.cat}</Title>;
+          return (
+            <>
+              <TouchableOpacity
+                style={styles.header}
+                onPress={() => navigation.navigate("Activity List")}
+              >
+                <Title>{item.cat}</Title>
+                <Text style={styles.seeAll}>See all</Text>
+              </TouchableOpacity>
+            </>
+          );
         }}
-        keyExtractor={(item) => item.cat}
       />
     </View>
   );
@@ -38,5 +50,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "flex-start",
     padding: 20,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  seeAll: {
+    color: "#000080",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
