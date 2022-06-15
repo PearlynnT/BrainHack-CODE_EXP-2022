@@ -45,7 +45,7 @@ function Main() {
 }
 
 export default function App() {
-  let isLoggedIn = true; // Change isLoggedIn to true to view home, activity, profile screens OR isLoggedIn to false to view login, register screens
+  let isLoggedIn = false; // Change isLoggedIn to true to view home, activity, profile screens OR isLoggedIn to false to view login, register screens
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
@@ -62,6 +62,11 @@ export default function App() {
           <>
             <Stack.Screen name="Log In" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen
+              name="Main"
+              component={Main}
+              options={{ headerShown: false }}
+            />
           </>
         )}
       </Stack.Navigator>

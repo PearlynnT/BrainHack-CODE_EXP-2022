@@ -42,6 +42,7 @@ const LoginScreen = (props) => {
     //   .catch((error) => {
     //     alert(error);
     //   });
+    props.navigation.navigate("Main");
   };
 
   return (
