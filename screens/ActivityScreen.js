@@ -10,7 +10,6 @@ import {
 import { Title, Card, Paragraph, List } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
-//import ActivityPreview from "../components/ActivityPreview";
 import activity from "../activity";
 
 const category = [

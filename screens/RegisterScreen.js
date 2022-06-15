@@ -20,34 +20,35 @@ const RegisterScreen = (props) => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const onRegisterPress = () => {
-    if (password !== confirmPassword) {
-      alert("Passwords don't match.");
-      return;
-    }
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((response) => {
-        const uid = response.user.uid;
-        const data = {
-          id: uid,
-          email,
-          name,
-        };
-        const usersRef = firebase.firestore().collection("users");
-        usersRef
-          .doc(uid)
-          .set(data)
-          .then(() => {
-            props.navigation.navigate("Log In", { user: data });
-          })
-          .catch((error) => {
-            alert(error);
-          });
-      })
-      .catch((error) => {
-        alert(error);
-      });
+    // if (password !== confirmPassword) {
+    //   alert("Passwords don't match.");
+    //   return;
+    // }
+    // firebase
+    //   .auth()
+    //   .createUserWithEmailAndPassword(email, password)
+    //   .then((response) => {
+    //     const uid = response.user.uid;
+    //     const data = {
+    //       id: uid,
+    //       email,
+    //       name,
+    //     };
+    //     const usersRef = firebase.firestore().collection("users");
+    //     usersRef
+    //       .doc(uid)
+    //       .set(data)
+    //       .then(() => {
+    //         navigation.navigate("Log In", { user: data });
+    //       })
+    //       .catch((error) => {
+    //         alert(error);
+    //       });
+    //   })
+    //   .catch((error) => {
+    //     alert(error);
+    //   });
+    props.navigation.navigate("Log In");
   };
 
   return (
